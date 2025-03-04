@@ -1,8 +1,11 @@
+import Features from '@/components/templates/index/Features'
 import React from 'react'
 
 function Home() {
   return (
-    <h1>Home Page</h1>
+    <>
+      <Features />
+    </>
   )
 }
 
