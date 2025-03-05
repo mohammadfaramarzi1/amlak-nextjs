@@ -4,28 +4,58 @@ import { useEffect, useState } from "react";
 
 function Homes() {
   const [search, setSearch] = useState("");
-  const [allHomes, setAllHomes] = useState(db.homes);
-  console.log(allHomes);
+  const [filtering, setFiltering] = useState("-1");
+  const [allHomes, setAllHomes] = useState([...db.homes]);
 
   useEffect(() => {
     const filteredHomes = db.homes.filter((home) =>
-      home.title.toLowerCase().includes(search)
+      home.title.toLowerCase().includes(search.toLocaleLowerCase())
     );
     setAllHomes(filteredHomes);
   }, [search]);
+
+  useEffect(() => {
+    switch (filtering) {
+      case "price": {
+        const newHomes = [...allHomes].sort((a, b) => a.price - b.price);
+        setAllHomes(newHomes);
+        break;
+      }
+      case "room": {
+        const newHomes = [...allHomes].sort(
+          (a, b) => a.roomCount - b.roomCount
+        );
+        setAllHomes(newHomes);
+        break;
+      }
+      case "meterage": {
+        const newHomes = [...allHomes].sort((a, b) => a.meterage - b.meterage);
+        setAllHomes(newHomes);
+        break;
+      }
+      default: {
+        setAllHomes([...db.homes]);
+        break;
+      }
+    }
+  }, [filtering]);
 
   return (
     <div className="home-section" id="houses">
       <div className="home-filter-search">
         <div className="home-filter">
-          <select name="" id="">
-            <option value="" selected>
+          <select
+            name=""
+            id=""
+            defaultValue={filtering}
+            onChange={(event) => setFiltering(event.target.value)}
+          >
+            <option value="-1">
               انتخاب کنید
             </option>
-            <option value="">بر اساس قیمت</option>
-            <option value="">بر اساس تعداد اتاق</option>
-            <option value="">بر اساس ادرس</option>
-            <option value="">بر اساس اندازه</option>
+            <option value="price">بر اساس قیمت</option>
+            <option value="room">بر اساس تعداد اتاق</option>
+            <option value="meterage">بر اساس اندازه</option>
           </select>
         </div>
         <div className="home-search">
