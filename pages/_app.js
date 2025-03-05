@@ -18,29 +18,29 @@ export default function App({ Component, pageProps }) {
         <div className="sidebar__bg"></div>
         <ul className="list">
           <li className="list__item">
-            <a href="index.html" className="list__link">
+            <Link href="/" className="list__link">
               صفحه اصلی
-            </a>
+            </Link>
           </li>
           <li className="list__item">
-            <a href="#" className="list__link">
+            <Link href="/" className="list__link">
               ویژگی ها
-            </a>
+            </Link>
           </li>
           <li className="list__item">
-            <a href="" className="list__link">
+            <Link  href="/" className="list__link">
               نظرات
-            </a>
+            </Link>
           </li>
           <li className="list__item">
-            <a href="houses.html" className="list__link">
+            <Link href="/homes" className="list__link">
               خانه ها
-            </a>
+            </Link>
           </li>
           <li className="list__item">
-            <a href="#" className="list__link">
+            <Link href="/" className="list__link">
               گالری
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
