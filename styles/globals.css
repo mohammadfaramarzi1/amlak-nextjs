@@ -2033,6 +2033,13 @@ body {
   grid-column: 1 / -1;
   width: 100%;
 }
+
+.empty {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+}
+
 /* End Components */
 
 @media only screen and (max-width: 75em) {
