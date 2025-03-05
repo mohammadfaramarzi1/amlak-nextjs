@@ -17,6 +17,13 @@ body {
   direction: rtl;
 }
 
+button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font: inherit;
+}
+
 :root {
   /* COLORS */
   --color-white: #fff;

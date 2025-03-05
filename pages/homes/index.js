@@ -6,6 +6,11 @@ function Homes() {
   const [search, setSearch] = useState("");
   const [filtering, setFiltering] = useState("-1");
   const [allHomes, setAllHomes] = useState([...db.homes]);
+  const [page, setPage] = useState(1);
+
+  const itemsPerPage = 3;
+  const firstIndex = (page - 1) * itemsPerPage;
+  const lastIndex = page * itemsPerPage;
 
   useEffect(() => {
     const filteredHomes = db.homes.filter((home) =>
@@ -50,9 +55,7 @@ function Homes() {
             defaultValue={filtering}
             onChange={(event) => setFiltering(event.target.value)}
           >
-            <option value="-1">
-              انتخاب کنید
-            </option>
+            <option value="-1">انتخاب کنید</option>
             <option value="price">بر اساس قیمت</option>
             <option value="room">بر اساس تعداد اتاق</option>
             <option value="meterage">بر اساس اندازه</option>
@@ -69,28 +72,27 @@ function Homes() {
       </div>
       <div className="homes">
         {allHomes.length ? (
-          allHomes.map((home) => <Home key={home.id} {...home} />)
+          allHomes
+            .slice(firstIndex, lastIndex)
+            .map((home) => <Home key={home.id} {...home} />)
         ) : (
           <p className="empty">املاکی با این نام وجود ندارد...</p>
         )}
       </div>
       {!!allHomes.length && (
         <ul className="pagination__list">
-          <li className="pagination__item">
-            <a href="#" className="">
-              {" "}
-            </a>
-          </li>
-          <li className="pagination__item">
-            <a href="#" className="">
-              2
-            </a>
-          </li>
-          <li className="pagination__item active">
-            <a href="#" className="">
-              1
-            </a>
-          </li>
+          {Array.from(
+            { length: Math.ceil(allHomes.length / itemsPerPage) },
+            (_, index) => (
+              <li
+                key={index + 1}
+                className={`pagination__item ${page === index + 1 && "active"}`}
+                onClick={() => setPage(index + 1)}
+              >
+                <span className="">{index + 1}</span>
+              </li>
+            )
+          )}
         </ul>
       )}
     </div>
